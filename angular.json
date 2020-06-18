@@ -72,7 +72,8 @@
             "browserTarget": "angular-fintech-banking:build",
             "customWebpackConfig": {
               "path": "./webpack.config.js"
-            }
+            },
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
