@@ -14,6 +14,8 @@ export class LoginService {
   url: string = 'http://localhost:4200/login';
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
+  userSubject: any = new BehaviorSubject<any>(null);
+  user: any = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -32,6 +34,9 @@ export class LoginService {
         if (res && res.jwt) {
           sessionStorage.setItem('jwt', res.jwt);
           this.errorSubject.next(null);
+          if (res.data) {
+            this.userSubject.next(res.data);
+          }
           this.router.navigateByUrl('dashboard');
         } else if (res.Message) {
           this.errorSubject.next(res.Message);
@@ -40,10 +45,6 @@ export class LoginService {
   }
 
   isAuthenticated(): boolean {
-    if (sessionStorage.getItem('jwt')) {
-      return true;
-    } else {
-      return false;
-    }
+    return !!sessionStorage.getItem('jwt');
   }
 }
