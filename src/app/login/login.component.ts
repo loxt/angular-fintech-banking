@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../services/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,15 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   isUsernameValid: boolean = true;
+  error: any = null;
 
-  constructor() {}
+  constructor(private loginService: LoginService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginService.errorSubject.subscribe((errorMessage) => {
+      this.error = errorMessage;
+    });
+  }
 
   validateUsername() {
     const pattern = RegExp(/^[\w-.]*$/);
@@ -25,6 +31,12 @@ export class LoginComponent implements OnInit {
       this.validateUsername();
     } else if (type === 'password') {
       this.password = e.target.value;
+    }
+  }
+
+  onSubmit() {
+    if (this.isUsernameValid) {
+      this.loginService.login(this.username, this.password);
     }
   }
 }
