@@ -14,6 +14,7 @@ export class LoginService {
   url: string = 'http://localhost:4200/login';
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
+
   constructor(private http: HttpClient, private router: Router) {}
 
   login(Username: string, Password: string): void {
@@ -36,5 +37,13 @@ export class LoginService {
           this.errorSubject.next(res.Message);
         }
       });
+  }
+
+  isAuthenticated(): boolean {
+    if (sessionStorage.getItem('jwt')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
