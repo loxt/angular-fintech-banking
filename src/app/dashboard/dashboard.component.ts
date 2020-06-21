@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../services/login/login.service';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +8,12 @@ import { LoginService } from '../services/login/login.service';
 })
 export class DashboardComponent implements OnInit {
   user: any = null;
-  constructor(private loginService: LoginService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.loginService.userSubject.subscribe((user) => {
+    this.userService.userSubject.subscribe((user) => {
       this.user = user;
-      this.loginService.user = user;
+      this.userService.user = user;
     });
   }
 }
