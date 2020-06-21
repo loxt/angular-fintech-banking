@@ -19,6 +19,10 @@
           placeholder="Username"
           (keyup)="onKey($event, 'username')"
         />
+        <p *ngIf="!valid.username" class="text-red-500 text-xs italic">
+          Username can consist of letters and numbers only and the minimum
+          length is 5!
+        </p>
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
@@ -31,6 +35,9 @@
           placeholder="Email"
           (keyup)="onKey($event, 'email')"
         />
+        <p *ngIf="!valid.email" class="text-red-500 text-xs italic">
+          Your email is not valid!
+        </p>
       </div>
       <div class="mb-4">
         <label
@@ -61,6 +68,9 @@
           placeholder="******************"
           (keyup)="onKey($event, 'confirmPassword')"
         />
+        <p *ngIf="!valid.password" class="text-red-500 text-xs italic">
+          Passwords are different!
+        </p>
       </div>
       <div class="flex items-center justify-between">
         <button
