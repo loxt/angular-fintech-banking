@@ -52,20 +52,30 @@ export class UserService {
       });
   }
 
-  isAuthenticated(): boolean {
-    return !!sessionStorage.getItem('jwt');
-  }
-
   checkJwt(res: any): void {
     if (res && res.jwt) {
       sessionStorage.setItem('jwt', res.jwt);
       this.errorSubject.next(null);
       if (res.data) {
         this.userSubject.next(res.data);
+        sessionStorage.setItem('userId', res.data.ID);
       }
       this.router.navigateByUrl('dashboard');
     } else if (res.Message) {
       this.errorSubject.next(res.Message);
     }
+  }
+
+  getUser() {
+    const userId = sessionStorage.getItem('userId');
+    const jwtToken = sessionStorage.getItem('jwt');
+    const reqHeader = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer' + jwtToken,
+      }),
+    };
+
+    return this.http.get(`${this.url}user/${userId}`, reqHeader);
   }
 }

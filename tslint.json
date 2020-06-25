@@ -6,6 +6,7 @@
   ],
   "rules": {
     "prettier": true,
+    "no-string-literal": false,
     "align": {
       "options": ["parameters", "statements"]
     },

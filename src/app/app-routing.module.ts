@@ -5,20 +5,22 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardGuard } from './services/guards/auth-guard.guard';
 import { RegisterComponent } from './register/register.component';
+import { UserResolverService } from './services/user-resolver/user-resolver.service';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
-  },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuardGuard],
   },
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: '',
+    component: DashboardComponent,
+    canActivate: [AuthGuardGuard],
+    resolve: { user: UserResolverService },
   },
 ];
 
