@@ -7,7 +7,7 @@ import { map, catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuardGuard implements CanActivate {
-  url = 'http://localhost:4200/api';
+  url = 'http://localhost:4200/api/';
   constructor(
     private loginService: UserService,
     private http: HttpClient,
@@ -20,7 +20,7 @@ export class AuthGuardGuard implements CanActivate {
     const reqHeader = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer' + jwtToken,
+        Authorization: 'Bearer ' + jwtToken,
       }),
     };
 
@@ -34,7 +34,7 @@ export class AuthGuardGuard implements CanActivate {
             return false;
           }
         }),
-        catchError((err) => {
+        catchError(() => {
           return of(false);
         })
       );

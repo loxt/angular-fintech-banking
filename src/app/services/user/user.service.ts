@@ -60,7 +60,7 @@ export class UserService {
         this.userSubject.next(res.data);
         sessionStorage.setItem('userId', res.data.ID);
       }
-      this.router.navigateByUrl('dashboard');
+      this.router.navigateByUrl('');
     } else if (res.Message) {
       this.errorSubject.next(res.Message);
     }
@@ -72,7 +72,7 @@ export class UserService {
     const reqHeader = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer' + jwtToken,
+        Authorization: 'Bearer ' + jwtToken,
       }),
     };
 
